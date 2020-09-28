@@ -3,7 +3,9 @@ pipeline {
 
   stages {
     stage('Clone sources') {
+      steps {
         git url: 'https://github.com/joseg19/client-rest-service.git'
+      }
     }
     /*stage("Build") {
       steps {
