@@ -1,29 +1,25 @@
 pipeline {
   agent any
+  tools {
+    maven 'Maven 3.3.9'
+    jdk 'jdk8'
+  }
   stages {
     stage('Clone sources') {
-      parallel {
-        stage('Clone sources') {
-          steps {
-            git 'https://github.com/joseg19/client-rest-service.git'
-          }
-        }
-
-        stage('Maven Build') {
-          steps {
-            sh 'sh mvn clean install'
-          }
-        }
-
+      steps {
+        git 'https://github.com/joseg19/client-rest-service.git'
       }
     }
-
+    stage('Maven Build') {
+      steps {
+        sh 'sh mvn clean install'
+      }
+    }
     stage('Building image') {
       steps {
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
-
       }
     }
 
