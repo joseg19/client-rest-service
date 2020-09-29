@@ -5,11 +5,11 @@ pipeline {
     dockerImage = ''
   }
   agent any
-  stage('Initialize'){
-    def dockerHome = tool 'myDocker'
-    env.PATH = "${dockerHome}/bin:${env.PATH}"
-  }
   stages {
+    stage('Initialize'){
+      def dockerHome = tool 'myDocker'
+      env.PATH = "${dockerHome}/bin:${env.PATH}"
+    }
     stage('Clone sources') {
       steps {
         git url: 'https://github.com/joseg19/client-rest-service.git'
