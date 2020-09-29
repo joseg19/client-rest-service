@@ -1,29 +1,24 @@
 pipeline {
-  environment {
-    registry = 'gcr.io/big-project-cl-2020'
-    registryCredential = 'gcp'
-    dockerImage = ''
-  }
   agent any
-  tools {
-    maven 'mvn'
-  }
   stages {
     stage('Clone sources') {
       steps {
         git 'https://github.com/joseg19/client-rest-service.git'
       }
     }
+
     stage('Maven Build') {
       steps {
-        sh 'sh mvn clean install'
+        sh 'mvn clean install'
       }
     }
+
     stage('Building image') {
       steps {
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
+
       }
     }
 
@@ -44,5 +39,13 @@ pipeline {
       }
     }
 
+  }
+  tools {
+    maven 'mvn'
+  }
+  environment {
+    registry = 'gcr.io/big-project-cl-2020'
+    registryCredential = 'gcp'
+    dockerImage = ''
   }
 }
