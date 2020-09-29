@@ -2,8 +2,19 @@ pipeline {
   agent any
   stages {
     stage('Clone sources') {
-      steps {
-        git 'https://github.com/joseg19/client-rest-service.git'
+      parallel {
+        stage('Clone sources') {
+          steps {
+            git 'https://github.com/joseg19/client-rest-service.git'
+          }
+        }
+
+        stage('Maven Build') {
+          steps {
+            sh 'sh mvn clean install'
+          }
+        }
+
       }
     }
 
