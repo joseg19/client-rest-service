@@ -45,7 +45,7 @@ pipeline {
   }
   environment {
     registry = 'gcr.io/big-project-cl-2020'
-    registryCredential = 'gcp'
+    registryCredential = 'gcr'
     dockerImage = ''
   }
 }
